@@ -6,8 +6,8 @@
 
 %hook PlayerController
 
-- (float)sprintSpeed { return 999.0f; }
-- (float)acceleration { return 999.0f; }
+- (float)sprintSpeed { return 99999.0f; }
+- (float)acceleration { return 99999.0f; }
 - (float)topSpeed { return 999999.0f; }
 - (float)strength { return 999999.0f; }
 - (float)balance { return 999999.0f; }
@@ -18,7 +18,7 @@
 %hook ShotController
 
 - (float)finishing { return 999999.0f; }
-- (float)shotPower { return 240.0f; }
+- (float)shotPower { return 99240.0f; }
 - (float)shotAccuracy { return 999999.0f; }
 - (float)longShots { return 999999.0f; }
 - (BOOL)willShotGoInGoal:(id)shot { return YES; }
@@ -36,8 +36,8 @@
 
 %hook JumpController
 
-- (float)jumping { return 300.0f; }
-- (float)jumpHeight { return 300.0f; }
+- (float)jumping { return 9300.0f; }
+- (float)jumpHeight { return 9300.0f; }
 - (float)headingAccuracy { return 999999.0f; }
 
 %end
@@ -74,14 +74,14 @@
 %hook PhysicsController
 
 - (BOOL)shouldOpponentFallOnContact { return YES; }
-- (float)opponentTripChance { return 999.0f; }
-- (float)collisionForce { return 400.0f; }
+- (float)opponentTripChance { return 9999.0f; }
+- (float)collisionForce { return 99400.0f; }
 
 %end
 
 %hook AIOpponentController
 
-- (float)aiReactionTime { return 999.0f; }
+- (float)aiReactionTime { return 9999.0f; }
 - (float)aiPassAccuracy { return 0.01f; }
 - (float)aiShotAccuracy { return 0.01f; }
 - (float)aiSpeed { return 0.1f; }
