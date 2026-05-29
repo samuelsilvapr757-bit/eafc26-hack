@@ -1,0 +1,35 @@
+name: Build EAFC26 Dylib
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Theos
+        run: |
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+      
+      - name: Build Tweak
+        run: |
+          export THEOS=$HOME/theos
+          make package ARCHS=arm64
+      
+      - name: Upload Dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: EAFC26Hack
+          path: .theos/obj/debug/arm64/EAFC26Hack.dylib
+          
+      - name: Upload Plist
+        uses: actions/upload-artifact@v4
+        with:
+          name: EAFC26Hack-plist
+          path: .theos/obj/debug/arm64/EAFC26Hack.plist
