@@ -1,0 +1,60 @@
+name: Build EAFC26 Dylib
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Theos
+        run: |
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+      
+      - name: Show all files
+        run: |
+          echo "=== Arquivos no repositório ==="
+          ls -la
+          echo "=== Conteúdo do Tweak.xm ==="
+          cat Tweak.xm | head -10
+          echo "=== Conteúdo do Makefile ==="
+          cat Makefile
+          echo "=== Conteúdo do control ==="
+          cat control
+          echo "=== Conteúdo do plist ==="
+          cat EAFC26Hack.plist
+      
+      - name: Build Tweak
+        run: |
+          export THEOS=$HOME/theos
+          make package ARCHS=arm64 DEBUG=0
+      
+      - name: Find outputs
+        run: |
+          echo "=== Procurando arquivos gerados ==="
+          find . -name "*.dylib" 2>/dev/null
+          find . -name "*.plist" 2>/dev/null
+          find . -name "*.deb" 2>/dev/null
+          
+      - name: Upload dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: EAFC26Hack-dylib
+          path: |
+            .theos/obj/debug/arm64/EAFC26Hack.dylib
+            .theos/obj/arm64/EAFC26Hack.dylib
+          if-no-files-found: warn
+          
+      - name: Upload deb (opcional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: EAFC26Hack-deb
+          path: |
+            packages/*.deb
+          if-no-files-found: warn
