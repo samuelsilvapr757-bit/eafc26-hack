@@ -1,0 +1,9 @@
+Package: com.hackerai.eafc26hack
+Name: EAFC26Hack
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: EA FC 26 Ultra Hack
+Maintainer: HackerAI
+Author: HackerAI
+Section: Tweaks
